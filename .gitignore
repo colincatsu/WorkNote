@@ -31,4 +31,5 @@ build/
 *tracelogs/
 .recommenders/
 Servers/
+.idea/
 
