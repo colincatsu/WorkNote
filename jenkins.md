@@ -2,7 +2,7 @@
 
 ```sh
 
-BUILD_ID=DONTKILLME
+BUILD_ID=DONTKILLME 使jenkins不杀死这个shell脚本
 pid=`ps -ef | grep "ethank-ktv-manager-dev" | grep -v grep | awk '{print $2}'` 
 if [ "$pid" != "" ] ; then
 kill -9 $pid
