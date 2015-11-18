@@ -63,7 +63,7 @@ public class MySessionDao extends CachingSessionDAO {
 
 因为我使用的是CachingSessionDAO 方法，所以需要对cache进行配置
 
-```xml```
+```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
   xmlns:aop="http://www.springframework.org/schema/aop" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
