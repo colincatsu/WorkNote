@@ -1,10 +1,10 @@
-# shiroÊ¹ÓÃ¹ı³ÌÖĞÓöµ½µÄÒ»Ğ©ÎÊÌâ
+# shiroä½¿ç”¨è¿‡ç¨‹ä¸­é‡åˆ°çš„ä¸€äº›é—®é¢˜
 
-* ÅäÖÃsession¹²ÏíµÄÎÊÌâ
+* é…ç½®sessionå…±äº«çš„é—®é¢˜
 
-> **×¢Òâ£º**ÎÒÊµÏÖµÄÊÇredis session¹²Ïí·½·¨¡£
+> **æ³¨æ„ï¼š**æˆ‘å®ç°çš„æ˜¯redis sessionå…±äº«æ–¹æ³•ã€‚
 
-```java```
+```java
 
 /**
  * Created by colinsu on 2015/11/13.
@@ -28,7 +28,7 @@ public class MySessionDao extends CachingSessionDAO {
     }
     protected void doUpdate(Session session) {
         if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
-            return; //Èç¹û»á»°¹ıÆÚ/Í£Ö¹ Ã»±ØÒªÔÙ¸üĞÂÁË
+            return; //å¦‚æœä¼šè¯è¿‡æœŸ/åœæ­¢ æ²¡å¿…è¦å†æ›´æ–°äº†
         }
         try {
             redisUtil.getInstance().set(session.getId().toString().getBytes(Charset.defaultCharset()), serializeTranscoder.serialize(session));
@@ -57,11 +57,11 @@ public class MySessionDao extends CachingSessionDAO {
 
 ```
 
-## Ö÷ÒªÓöµ½µÄÎÊÌâ
-* Ê¹ÓÃ `JedisPoll.getResource()`·½·¨»ñÈ¡²»µ½ÏàÓ¦µÄ `Jedis¶ÔÏó` µ¼ÖÂsession¹²ÏíÊ§°Ü
-* ÅäÖÃÎÄ¼şÅäÖÃ´íÎó
+## ä¸»è¦é‡åˆ°çš„é—®é¢˜
+* ä½¿ç”¨ `JedisPoll.getResource()`æ–¹æ³•è·å–ä¸åˆ°ç›¸åº”çš„ `Jediså¯¹è±¡` å¯¼è‡´sessionå…±äº«å¤±è´¥
+* é…ç½®æ–‡ä»¶é…ç½®é”™è¯¯
 
-ÒòÎªÎÒÊ¹ÓÃµÄÊÇCachingSessionDAO ·½·¨£¬ËùÒÔĞèÒª¶Ôcache½øĞĞÅäÖÃ
+å› ä¸ºæˆ‘ä½¿ç”¨çš„æ˜¯CachingSessionDAO æ–¹æ³•ï¼Œæ‰€ä»¥éœ€è¦å¯¹cacheè¿›è¡Œé…ç½®
 
 ```xml```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -78,23 +78,23 @@ public class MySessionDao extends CachingSessionDAO {
 		<property name="sessionIdGenerator" ref="sessionIdGenerator"/>
 	</bean>
 
-  	<!-- idÉú³ÉÆ÷ -->
+  	<!-- idç”Ÿæˆå™¨ -->
   	<bean id="sessionIdGenerator" class="org.apache.shiro.session.mgt.eis.JavaUuidSessionIdGenerator"/>
-    <!-- »º´æ¹ÜÀíÆ÷ -->
+    <!-- ç¼“å­˜ç®¡ç†å™¨ -->
     <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
         <property name="cacheManagerConfigFile" value="classpath:conf/ehcache-shiro.xml"/>
     </bean>
-    <!-- »á»°DAO -->
+    <!-- ä¼šè¯DAO -->
     <!--<bean id="sessionDAO" class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">-->
     	<!--<property name="activeSessionsCacheName" value="shiro-activeSessionCache"/>-->
         <!--<property name="sessionIdGenerator" ref="sessionIdGenerator"/>-->
     <!--</bean>-->
-    <!-- »á»°ÑéÖ¤µ÷¶ÈÆ÷ -->  
+    <!-- ä¼šè¯éªŒè¯è°ƒåº¦å™¨ -->  
     <bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.quartz.QuartzSessionValidationScheduler">  
         <property name="sessionValidationInterval" value="86400000"/>  
         <property name="sessionManager" ref="sessionManager"/>  
     </bean>
-    <!-- »á»°¹ÜÀíÆ÷ -->
+    <!-- ä¼šè¯ç®¡ç†å™¨ -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
     	<property name="sessionValidationSchedulerEnabled" value="true"/>
     	<property name="deleteInvalidSessions" value="true"/>
@@ -103,7 +103,7 @@ public class MySessionDao extends CachingSessionDAO {
         <property name="sessionDAO" ref="mySessionDao"/>
     </bean>
 
-    <!-- °²È«¹ÜÀíÆ÷ -->
+    <!-- å®‰å…¨ç®¡ç†å™¨ -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="securityRealm"/>
 		<property name="sessionManager" ref="sessionManager"/>
@@ -124,7 +124,7 @@ public class MySessionDao extends CachingSessionDAO {
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
 </beans>
 ```
-`activeSessionsCacheName` ºÍ `sessionIdGenerator` ±ØĞëÒ²½øĞĞDI×¢Èë
+`activeSessionsCacheName` å’Œ `sessionIdGenerator` å¿…é¡»ä¹Ÿè¿›è¡ŒDIæ³¨å…¥
 
 
 
