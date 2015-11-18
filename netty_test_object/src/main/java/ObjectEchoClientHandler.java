@@ -20,9 +20,10 @@ public class ObjectEchoClientHandler extends ChannelHandlerAdapter {
         firstMessage = new ArrayList<String>(ObjectEchoClient.SIZE);
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (int i = 0; i < 20000; i ++) {
-            stringBuilder.append("大家好--"+i+"\n");
+        for (int i = 0; i < 40000; i ++) {
+            stringBuilder.append("大家好"+i+"\n");
         }
+        System.out.print(stringBuilder.length());
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("test",stringBuilder.toString());
         firstMessage.add(jsonObject.toJSONString());
